@@ -18,8 +18,6 @@ class ChecklistsViewController: UITableViewController {
         var one :ChecklistItem = ChecklistItem(text: "Toto")
         var two :ChecklistItem = ChecklistItem(text: "Titi", checked: true)
         
-        
-        
         listNote.append(one)
         listNote.append(two)
         
@@ -36,13 +34,30 @@ class ChecklistsViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath: NSIndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCellWithIdentifier("ChecklistItem", forIndexPath: cellForRowAtIndexPath)
-        cell.textLabel!.text = listNote[cellForRowAtIndexPath.row].text
+        configureTextForCell(cell, withItem: listNote[cellForRowAtIndexPath.row])
+        configureCheckmarkForCell(cell, withItem: listNote[cellForRowAtIndexPath.row])
         return cell
     }
     
     override func tableView(tableView : UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
+    
+    func configureCheckmarkForCell(cell: UITableViewCell, withItem item: ChecklistItem) {
+        switch(item.checked){
+        case true: cell.accessoryType = .Checkmark
+            
+        case false : cell.accessoryType = .None
+            
+        default : cell.accessoryType = .None
+        }
+    }
+    
+    func configureTextForCell(cell : UITableViewCell, withItem item:ChecklistItem){
+        cell.textLabel?.text = item.text
+    }
+    
+    
 
 
 }
