@@ -34,4 +34,8 @@ class AddItemTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
         return nil
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        mNameItem.becomeFirstResponder()
+    }
 }
