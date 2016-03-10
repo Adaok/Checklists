@@ -11,9 +11,12 @@ import UIKit
 class AddItemTableViewController: UITableViewController {
 
     @IBOutlet weak var mNameItem: UITextField!
+    @IBOutlet weak var doneButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        doneButton.enabled = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,4 +41,22 @@ class AddItemTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         mNameItem.becomeFirstResponder()
     }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
+        
+        let beforeInput: NSString = textField.text!
+        let afterInput: NSString = beforeInput.stringByReplacingCharactersInRange(range, withString: string)
+        
+        
+            doneButton.enabled = afterInput.length > 0
+        
+        return true
+    }
+    
+    var delegate:AddItemViewControllerDelegate?
+}
+
+protocol AddItemViewControllerDelegate{
+    func addItemViewControllerDidCancel(controller: AddItemTableViewController)
+    func addItemViewController(controller: AddItemTableViewController, didFinishAddingItem item: ChecklistItem)
 }
