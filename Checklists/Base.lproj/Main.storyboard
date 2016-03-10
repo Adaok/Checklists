@@ -29,7 +29,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Checklist" id="aiM-5m-Sy2">
-                        <barButtonItem key="rightBarButtonItem" title="Add" id="HMA-pm-b2e">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="HMA-pm-b2e">
                             <connections>
                                 <segue destination="DtY-gY-XEx" kind="presentation" identifier="addItem" id="ZEq-Vf-nBU"/>
                             </connections>
@@ -44,32 +44,43 @@
         <scene sceneID="Sed-19-NFc">
             <objects>
                 <tableViewController id="DOd-2O-PcN" customClass="AddItemTableViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="EyK-7C-6LO">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="EyK-7C-6LO">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="sZx-c3-n6o">
-                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sZx-c3-n6o" id="bEu-6m-vVo">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="fcK-65-AEJ">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="sZx-c3-n6o">
+                                        <rect key="frame" x="0.0" y="99" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sZx-c3-n6o" id="bEu-6m-vVo">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name of your item" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ANu-m2-Ozj">
+                                                    <rect key="frame" x="8" y="7" width="584" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
                         <connections>
                             <outlet property="dataSource" destination="DOd-2O-PcN" id="Vq3-3e-Fcq"/>
                             <outlet property="delegate" destination="DOd-2O-PcN" id="4bs-Mg-I8H"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Add Item" id="23F-OO-L0j">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="HCV-p8-fU9">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="HCV-p8-fU9">
                             <connections>
                                 <action selector="cancel:" destination="DOd-2O-PcN" id="4gs-lG-VfZ"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="2dW-qK-5nM">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="2dW-qK-5nM">
                             <connections>
                                 <action selector="done:" destination="DOd-2O-PcN" id="01P-sk-gcz"/>
                             </connections>
