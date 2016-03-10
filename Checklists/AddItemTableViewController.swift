@@ -10,9 +10,10 @@ import UIKit
 
 class AddItemTableViewController: UITableViewController {
 
+    @IBOutlet weak var mNameItem: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,6 +22,7 @@ class AddItemTableViewController: UITableViewController {
     }
 
     @IBAction func done(sender: AnyObject) {
+        print(mNameItem.text)
         dismissViewControllerAnimated(true, completion: nil)
     }
     

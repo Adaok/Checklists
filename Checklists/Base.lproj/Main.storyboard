@@ -62,6 +62,9 @@
                                                     <rect key="frame" x="8" y="7" width="584" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="done:" destination="DOd-2O-PcN" eventType="editingDidEndOnExit" id="Wcq-58-xsc"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -86,6 +89,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="mNameItem" destination="ANu-m2-Ozj" id="C9J-YY-cYc"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rz0-XE-Jgo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
