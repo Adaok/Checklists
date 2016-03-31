@@ -47,16 +47,18 @@ class ChecklistsViewController: UITableViewController, AddItemViewControllerDele
     
     func configureCheckmarkForCell(cell: UITableViewCell, withItem item: ChecklistItem) {
         switch(item.checked){
-        case true: cell.accessoryType = .Checkmark
+        case true: cell.viewWithTag(1)?.hidden = false
+        
+        case false : cell.viewWithTag(1)?.hidden = true
             
-        case false : cell.accessoryType = .None
-            
-        default : cell.accessoryType = .None
+        default : cell.viewWithTag(1)?.hidden = true
         }
     }
     
     func configureTextForCell(cell : UITableViewCell, withItem item:ChecklistItem){
-        cell.textLabel?.text = item.text
+        if let label = cell.viewWithTag(2) as? UILabel {
+            label.text = item.text
+        }
     }
     
     @IBAction func addDumyTodo(sender: UIBarButtonItem) {

@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Checklist-->
@@ -14,13 +15,40 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="ChecklistItem" id="pau-t9-IWQ">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="ChecklistItem" id="pau-t9-IWQ">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pau-t9-IWQ" id="BRy-SK-6XP">
-                                    <rect key="frame" x="0.0" y="0.0" width="561" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="533" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="✓" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ixK-Wq-pss">
+                                            <rect key="frame" x="8" y="7" width="24" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="24" id="NlX-a4-Gzj"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pyl-Yd-RSU">
+                                            <rect key="frame" x="40" y="11" width="493" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ixK-Wq-pss" firstAttribute="centerY" secondItem="Pyl-Yd-RSU" secondAttribute="centerY" id="L3Y-G4-itv"/>
+                                        <constraint firstItem="ixK-Wq-pss" firstAttribute="leading" secondItem="BRy-SK-6XP" secondAttribute="leadingMargin" id="SbV-Xc-6bk"/>
+                                        <constraint firstItem="ixK-Wq-pss" firstAttribute="centerY" secondItem="BRy-SK-6XP" secondAttribute="centerY" id="VzW-iq-OYX"/>
+                                        <constraint firstItem="Pyl-Yd-RSU" firstAttribute="leading" secondItem="ixK-Wq-pss" secondAttribute="trailing" constant="8" symbolic="YES" id="iFf-7h-IvC"/>
+                                        <constraint firstAttribute="trailing" secondItem="Pyl-Yd-RSU" secondAttribute="trailing" id="v1S-29-FaG"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="DtY-gY-XEx" kind="presentation" identifier="EditItem" trigger="accessoryAction" id="Kt8-o3-TxA"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -136,4 +164,7 @@
             <point key="canvasLocation" x="1854" y="196"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Kt8-o3-TxA"/>
+    </inferredMetricsTieBreakers>
 </document>
