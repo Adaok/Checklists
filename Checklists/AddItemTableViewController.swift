@@ -13,9 +13,14 @@ class AddItemTableViewController: UITableViewController {
     @IBOutlet weak var mNameItem: UITextField!
     @IBOutlet weak var doneButton: UIBarButtonItem!
     
+    var itemToEdit :ChecklistItem?
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
+        super.viewDidLoad()        
+        if let item = itemToEdit {
+            mNameItem.text = item.text
+            title = "Edit item"
+        }
         doneButton.enabled = false
     }
 
@@ -26,12 +31,19 @@ class AddItemTableViewController: UITableViewController {
 
     @IBAction func done(sender: AnyObject) {
         print(mNameItem.text)
-        dismissViewControllerAnimated(true, completion: nil)
+        let itemToSend:ChecklistItem = ChecklistItem(text: mNameItem.text!)
+        if itemToEdit != nil{
+            itemToEdit?.text = mNameItem.text!
+            delegate?.addItemViewController(self, didFinishEditingItem: itemToEdit!)
+        }
+        else{
+            delegate?.addItemViewController(self, didFinishAddingItem: itemToSend)
+        }
     }
     
     
     @IBAction func cancel(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+        delegate?.addItemViewControllerDidCancel(self)
     }
     
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
@@ -47,8 +59,7 @@ class AddItemTableViewController: UITableViewController {
         let beforeInput: NSString = textField.text!
         let afterInput: NSString = beforeInput.stringByReplacingCharactersInRange(range, withString: string)
         
-        
-            doneButton.enabled = afterInput.length > 0
+        doneButton.enabled = afterInput.length > 0
         
         return true
     }
@@ -59,4 +70,5 @@ class AddItemTableViewController: UITableViewController {
 protocol AddItemViewControllerDelegate{
     func addItemViewControllerDidCancel(controller: AddItemTableViewController)
     func addItemViewController(controller: AddItemTableViewController, didFinishAddingItem item: ChecklistItem)
+    func addItemViewController(controller: AddItemTableViewController, didFinishEditingItem item: ChecklistItem)
 }

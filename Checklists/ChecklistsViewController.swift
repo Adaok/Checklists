@@ -15,12 +15,11 @@ class ChecklistsViewController: UITableViewController, AddItemViewControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        var one :ChecklistItem = ChecklistItem(text: "Toto")
-        var two :ChecklistItem = ChecklistItem(text: "Titi", checked: true)
+        let one :ChecklistItem = ChecklistItem(text: "Toto")
+        let two :ChecklistItem = ChecklistItem(text: "Titi", checked: true)
         
         listNote.append(one)
         listNote.append(two)
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,13 +60,6 @@ class ChecklistsViewController: UITableViewController, AddItemViewControllerDele
         }
     }
     
-    @IBAction func addDumyTodo(sender: UIBarButtonItem) {
-        var addedItem :ChecklistItem = ChecklistItem(text: "Dummy")
-        listNote.append(addedItem)
-        let indexPath = NSIndexPath(forRow: listNote.count-1, inSection: 0)
-        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Top)
-    }
-    
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         listNote.removeAtIndex(indexPath.row)
         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Bottom)
@@ -78,6 +70,15 @@ class ChecklistsViewController: UITableViewController, AddItemViewControllerDele
     }
     
     func addItemViewController(controller: AddItemTableViewController, didFinishAddingItem item: ChecklistItem){
+        listNote.append(item)
+        tableView.reloadData()
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func addItemViewController(controller: AddItemTableViewController, didFinishEditingItem item: ChecklistItem){
+        let indexItemToReload = listNote.indexOf({ $0 === item})
+        listNote[indexItemToReload!].text = item.text
+        tableView.reloadData()
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -86,7 +87,13 @@ class ChecklistsViewController: UITableViewController, AddItemViewControllerDele
             let destination = segue.destinationViewController as! UINavigationController
             let finalDestination = destination.topViewController as! AddItemTableViewController
             finalDestination.delegate = self
+        } else if segue.identifier == "EditItem" {
+            let destination = segue.destinationViewController as! UINavigationController
+            let finalDestination = destination.topViewController as! AddItemTableViewController
+            if let cell = sender as? UITableViewCell{
+                finalDestination.itemToEdit = listNote[(tableView.indexPathForCell(cell)?.item)!]
+            }
+            finalDestination.delegate = self
         }
     }
-    
 }
