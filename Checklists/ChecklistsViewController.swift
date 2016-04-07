@@ -15,11 +15,7 @@ class ChecklistsViewController: UITableViewController, AddItemViewControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let one :ChecklistItem = ChecklistItem(text: "Toto")
-        let two :ChecklistItem = ChecklistItem(text: "Titi", checked: true)
         
-        listNote.append(one)
-        listNote.append(two)
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,6 +38,7 @@ class ChecklistsViewController: UITableViewController, AddItemViewControllerDele
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         listNote[indexPath.row].toogleChecked()
         tableView.reloadData()
+        saveChecklistItems()
     }
     
     func configureCheckmarkForCell(cell: UITableViewCell, withItem item: ChecklistItem) {
@@ -63,6 +60,7 @@ class ChecklistsViewController: UITableViewController, AddItemViewControllerDele
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         listNote.removeAtIndex(indexPath.row)
         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Bottom)
+        saveChecklistItems()
     }
     
     func addItemViewControllerDidCancel(controller: AddItemTableViewController){
@@ -73,6 +71,7 @@ class ChecklistsViewController: UITableViewController, AddItemViewControllerDele
         listNote.append(item)
         tableView.reloadData()
         dismissViewControllerAnimated(true, completion: nil)
+        saveChecklistItems()
     }
     
     func addItemViewController(controller: AddItemTableViewController, didFinishEditingItem item: ChecklistItem){
@@ -80,6 +79,7 @@ class ChecklistsViewController: UITableViewController, AddItemViewControllerDele
         listNote[indexItemToReload!].text = item.text
         tableView.reloadData()
         dismissViewControllerAnimated(true, completion: nil)
+        saveChecklistItems()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -96,4 +96,35 @@ class ChecklistsViewController: UITableViewController, AddItemViewControllerDele
             finalDestination.delegate = self
         }
     }
+    
+    func documentDirectory()->NSURL {
+        var path:NSURL?
+        do{
+            path = try NSFileManager.defaultManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
+        } catch {
+            print("Something wrong")
+        }
+        return path!
+    }
+    
+    func dataFileURL()->NSURL {
+        let file = NSURL.init(fileURLWithPath: "Checklists.plist", isDirectory: false, relativeToURL: documentDirectory())
+        return file
+    }
+    
+    func saveChecklistItems(){
+        NSKeyedArchiver.archiveRootObject(listNote, toFile: dataFileURL().path!)
+    }
+    
+    func loadChecklistItems(){
+        if NSFileManager.defaultManager().fileExistsAtPath(dataFileURL().path!) == false {
+            return
+        }
+        listNote = NSKeyedUnarchiver.unarchiveObjectWithFile(dataFileURL().path!) as! [ChecklistItem]
+    }
+    
+    override func awakeFromNib() {
+        loadChecklistItems()
+    }
+    
 }

@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Checklists/ChecklistItem.swift"
-            timestampString = "479295074.58043"
+            timestampString = "481709603.209973"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "toogleChecked()"
-            landmarkType = "5">
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "ChecklistItem"
+            landmarkType = "3">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
