@@ -24,7 +24,6 @@ class ChecklistItem :NSObject {
     
     required convenience init?(coder decoder: NSCoder) {
         guard let text = decoder.decodeObjectForKey("text") as? String
-        //let checked = decoder.decodeObjectForKey("checked") as? Bool
         else { return nil }
         
         self.init(

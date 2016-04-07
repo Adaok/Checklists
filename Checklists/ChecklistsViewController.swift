@@ -11,9 +11,12 @@ import UIKit
 class ChecklistsViewController: UITableViewController, AddItemViewControllerDelegate {
 
     var listNote = [ChecklistItem]()
+    var list:Checklist!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = list.name
+        listNote = list.item
         // Do any additional setup after loading the view, typically from a nib.
         
     }
