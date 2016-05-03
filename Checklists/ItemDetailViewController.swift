@@ -55,7 +55,7 @@ class AddItemTableViewController: UITableViewController {
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
-        
+
         let beforeInput: NSString = textField.text!
         let afterInput: NSString = beforeInput.stringByReplacingCharactersInRange(range, withString: string)
         

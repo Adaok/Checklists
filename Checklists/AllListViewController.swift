@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AllListViewController: UITableViewController {
+class AllListViewController: UITableViewController, AddListViewControllerDelegate {
     
     var listChecklists = [Checklist]()
     var items = [ChecklistItem]()
@@ -61,9 +61,40 @@ class AllListViewController: UITableViewController {
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let destination = segue.destinationViewController as! ChecklistsViewController
+    func addListViewControllerDidCancel(controller: ListDetailViewController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func addListViewController(controller: ListDetailViewController, didFinishEditingList list: Checklist) {
+        let indexListToReload = listChecklists.indexOf({$0 === list})
+        listChecklists[indexListToReload!].name = list.name
+        tableView.reloadData()
+        dismissViewControllerAnimated(true, completion: nil)
         
-        destination.list = listChecklists[tableView.indexPathForSelectedRow!.row]
+    }
+    
+    func addListViewController(controller: ListDetailViewController, didFinishAddingList list: Checklist) {
+        listChecklists.append(list)
+        tableView.reloadData()
+        dismissViewControllerAnimated(true, completion: nil)
+        
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "SelectList" {
+            let destination = segue.destinationViewController as! ChecklistsViewController
+            destination.list = listChecklists[tableView.indexPathForSelectedRow!.row]
+        } else if segue.identifier == "AddList" {
+            let destination = segue.destinationViewController as! UINavigationController
+            let finalDestination = destination.topViewController as! ListDetailViewController
+            finalDestination.delegate = self
+        } else if segue.identifier == "EditList" {
+            let destination = segue.destinationViewController as! UINavigationController
+            let finalDestination = destination.topViewController as! ListDetailViewController
+            if let cell = sender as? UITableViewCell{
+                finalDestination.listToEdit = listChecklists[(tableView.indexPathForCell(cell)?.item)!]
+            }
+            finalDestination.delegate = self
+        }
     }
 }
