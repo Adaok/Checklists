@@ -13,7 +13,7 @@ class AllListViewController: UITableViewController, AddListViewControllerDelegat
     var listChecklists = [Checklist]()
     var items = [ChecklistItem]()
     var currentList:Checklist?
-    
+        
     override func viewDidLoad() {
 
         var itemOne:ChecklistItem = ChecklistItem(text: "Toto")
@@ -31,6 +31,11 @@ class AllListViewController: UITableViewController, AddListViewControllerDelegat
         listChecklists.append(one)
         listChecklists.append(two)
         listChecklists.append(three)
+        
+        for var list in listChecklists{
+            var item:ChecklistItem = ChecklistItem(text: "Item for \(list.name)")
+            list.item.append(item)
+        }
         
     }
     

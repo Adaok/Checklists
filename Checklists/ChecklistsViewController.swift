@@ -41,7 +41,7 @@ class ChecklistsViewController: UITableViewController, AddItemViewControllerDele
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         listNote[indexPath.row].toogleChecked()
         tableView.reloadData()
-        saveChecklistItems()
+        //saveChecklistItems()
     }
     
     func configureCheckmarkForCell(cell: UITableViewCell, withItem item: ChecklistItem) {
@@ -63,7 +63,7 @@ class ChecklistsViewController: UITableViewController, AddItemViewControllerDele
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         listNote.removeAtIndex(indexPath.row)
         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Bottom)
-        saveChecklistItems()
+        //saveChecklistItems()
     }
     
     func addItemViewControllerDidCancel(controller: AddItemTableViewController){
@@ -74,7 +74,7 @@ class ChecklistsViewController: UITableViewController, AddItemViewControllerDele
         listNote.append(item)
         tableView.reloadData()
         dismissViewControllerAnimated(true, completion: nil)
-        saveChecklistItems()
+        //saveChecklistItems()
     }
     
     func addItemViewController(controller: AddItemTableViewController, didFinishEditingItem item: ChecklistItem){
@@ -82,7 +82,7 @@ class ChecklistsViewController: UITableViewController, AddItemViewControllerDele
         listNote[indexItemToReload!].text = item.text
         tableView.reloadData()
         dismissViewControllerAnimated(true, completion: nil)
-        saveChecklistItems()
+        //saveChecklistItems()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
